@@ -15,8 +15,8 @@ public class Test1 extends HttpServlet {
         PrintWriter out = resp.getWriter();
         out.println("<html>" +
                 "<head>" +
-                "<h1>lunch</h1>" +
-                "<h2>컵라면,삼각김밥</h2>" +
+                "<h1>lunch menu</h1>" +
+                "<h2></h2>" +
                 "</head>" +
                 "<body>");
     }
