@@ -12,7 +12,11 @@
     <title>메인화면</title>
 </head>
 <body>
-<h1>회원정보</h1>
+<h1>${loginInfo.member_name}님 반갑습니다.</h1>
+
+<form action="/memberLogout" method="post">
+    <button type="submit">로그아웃</button>
+</form>
 <ul>
     <c:forEach var="dto" items="${list}">
         <li>이름: <a href="/member/info?member_num=${dto.member_num}">${dto.member_name}</a> - 아이디: ${dto.member_id} - 가입일: ${dto.created_at}</li>

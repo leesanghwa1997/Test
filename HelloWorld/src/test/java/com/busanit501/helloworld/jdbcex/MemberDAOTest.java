@@ -47,10 +47,9 @@ public class MemberDAOTest {
     @Test
     public void insetTest() throws Exception {
         MemberVO memberVO1 = MemberVO.builder()
-                .member_name("테스트2")
-                .member_id("테스트아이디2")
-                .member_password("테스트비밀번호")
-                .created_at(LocalDate.of(2024, 12, 31))
+                .member_name("이상화123")
+                .member_id("lsh1234")
+                .member_password("123")
                 .build();
 
         memberDAO.insertMember(memberVO1);

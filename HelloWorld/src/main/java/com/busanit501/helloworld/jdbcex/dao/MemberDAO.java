@@ -75,13 +75,12 @@ public class MemberDAO {
 
     public void insertMember(MemberVO memberVO) throws SQLException {
         String sql = "insert into member (member_name, member_id, member_password,created_at) " +
-                "values (?, ?, ?,?)";
+                "values (?, ?, ?,CURRENT_TIMESTAMP)";
         @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
         @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setString(1, memberVO.getMember_name());
         preparedStatement.setString(2, memberVO.getMember_id());
         preparedStatement.setString(3, memberVO.getMember_password());
-        preparedStatement.setDate(4, Date.valueOf(memberVO.getCreated_at()));
         preparedStatement.executeUpdate();
     }
 
@@ -103,5 +102,25 @@ public class MemberDAO {
         @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setInt(1, member_num);
         preparedStatement.executeUpdate();
+    }
+
+    public MemberVO getMemberInfo(String member_id, String member_password) throws SQLException {
+        String query = "select * from member where member_id=? and member_password=?";
+        // 결과 데이터를 담아둘 임시 박스 MemberVO
+        MemberVO memberVO = null;
+
+        @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
+        @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(query);
+        preparedStatement.setString(1, member_id);
+        preparedStatement.setString(2, member_password);
+        @Cleanup ResultSet resultSet = preparedStatement.executeQuery();
+        resultSet.next();
+        memberVO = MemberVO.builder()
+                .member_id(resultSet.getString("member_id"))
+                .member_password(resultSet.getString("member_password"))
+                .member_name(resultSet.getString("member_name"))
+                .build();
+
+        return memberVO;
     }
 }

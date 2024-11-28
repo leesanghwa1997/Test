@@ -2,10 +2,8 @@ package com.busanit501.helloworld.jdbcex.service;
 
 import com.busanit501.helloworld.jdbcex.dao.MemberDAO;
 import com.busanit501.helloworld.jdbcex.dto.MemberDTO;
-import com.busanit501.helloworld.jdbcex.dto.TodoDTO;
 import com.busanit501.helloworld.jdbcex.util.MapperUtil;
 import com.busanit501.helloworld.jdbcex.vo.MemberVO;
-import com.busanit501.helloworld.jdbcex.vo.TodoVO;
 import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
 
@@ -56,5 +54,11 @@ public enum MemberService {
 
     public void delete(int member_num) throws SQLException {
         memberDAO.deleteMember(member_num);
+    }
+
+    public MemberDTO login(String member_id, String member_password) throws SQLException {
+        MemberVO memberVO = memberDAO.getMemberInfo(member_id,member_password);
+        MemberDTO memberDTO = modelMapper.map(memberVO, MemberDTO.class);
+        return memberDTO;
     }
 }
